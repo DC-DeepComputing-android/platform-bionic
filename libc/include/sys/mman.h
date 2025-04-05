@@ -86,12 +86,6 @@ int msync(void* _Nonnull __addr, size_t __size, int __flags);
  */
 int mprotect(void* _Nonnull __addr, size_t __size, int __prot);
 
-/** Flag for mremap(). */
-#define MREMAP_MAYMOVE  1
-
-/** Flag for mremap(). */
-#define MREMAP_FIXED    2
-
 /**
  * [mremap(2)](https://man7.org/linux/man-pages/man2/mremap.2.html)
  * expands or shrinks an existing memory mapping.
@@ -177,8 +171,6 @@ int madvise(void* _Nonnull __addr, size_t __size, int __advice);
 ssize_t process_madvise(int __pid_fd, const struct iovec* _Nonnull __iov, size_t __count, int __advice, unsigned __flags) __INTRODUCED_IN(31);
 #endif /* __BIONIC_AVAILABILITY_GUARD(31) */
 
-#if defined(__USE_GNU)
-
 /**
  * [memfd_create(2)](https://man7.org/linux/man-pages/man2/memfd_create.2.html)
  * creates an anonymous file.
@@ -187,10 +179,10 @@ ssize_t process_madvise(int __pid_fd, const struct iovec* _Nonnull __iov, size_t
  *
  * Returns an fd on success, and returns -1 and sets `errno` on failure.
  */
+#if defined(__USE_GNU)
 #if __BIONIC_AVAILABILITY_GUARD(30)
 int memfd_create(const char* _Nonnull __name, unsigned __flags) __INTRODUCED_IN(30);
 #endif /* __BIONIC_AVAILABILITY_GUARD(30) */
-
 #endif
 
 #if __ANDROID_API__ >= 23
